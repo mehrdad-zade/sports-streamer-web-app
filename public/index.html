@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <title>Live Sports</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn" id="home-btn" type="button" aria-label="Home" title="Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.6 12 3l9 7.6V20a1 1 0 0 1-1 1h-5.5v-6.2h-5V21H4a1 1 0 0 1-1-1z"/></svg>
+    </button>
+    <button class="icon-btn" id="settings-btn" type="button" aria-label="Settings" title="Settings">
+      <svg class="stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    <form class="search" id="search-form" role="search" autocomplete="off">
+      <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 0 3.9 11.7l4.4 4.4 1.4-1.4-4.4-4.4A6.5 6.5 0 0 0 10.5 4zm0 2a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>
+      <input id="search" type="search" placeholder="Search teams, e.g. real" aria-label="Search teams" spellcheck="false" autocapitalize="off" enterkeyhint="search">
+      <button class="clear-btn" id="clear-btn" type="button" aria-label="Clear search" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm3.5 5.1 1.4 1.4-3.5 3.5 3.5 3.5-1.4 1.4-3.5-3.5-3.5 3.5-1.4-1.4 3.5-3.5-3.5-3.5 1.4-1.4 3.5 3.5z"/></svg>
+      </button>
+    </form>
+    <button class="icon-btn watch-only" id="next-btn" type="button" aria-label="Next live source" title="Next live source" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5v13a.8.8 0 0 0 1.2.7L16 13v5.5h2.5v-13H16V11L6.2 4.8A.8.8 0 0 0 5 5.5z"/></svg>
+    </button>
+    <button class="icon-btn watch-only" id="recheck-btn" type="button" aria-label="Re-check sources" title="Re-check sources" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a8 8 0 0 1 7.4 5H17v2h6V5h-2v2.3A10 10 0 1 0 22 12h-2a8 8 0 1 1-8-8z"/></svg>
+    </button>
+  </header>
+
+  <main id="app"></main>
+
+  <dialog id="settings" aria-labelledby="settings-title">
+    <form method="dialog" id="settings-form">
+      <div class="dialog-bar">
+        <button type="button" class="link-btn" id="settings-cancel">Cancel</button>
+        <h2 id="settings-title">Settings</h2>
+        <button type="submit" class="link-btn strong" id="settings-save">Save</button>
+      </div>
+      <div class="dialog-body">
+        <section>
+          <h3>Streaming site</h3>
+          <div class="group">
+            <input id="site-url" type="url" placeholder="https://example.com" spellcheck="false" autocapitalize="off" inputmode="url">
+            <button type="button" class="row-btn" id="test-site">Test site <span class="spinner small" hidden></span></button>
+            <p class="test-result" id="test-result" hidden></p>
+          </div>
+          <p class="footnote">The app reads this page and its sport category pages to build the event list.</p>
+        </section>
+        <section>
+          <h3>While watching</h3>
+          <div class="group">
+            <label class="row">
+              <span>Re-check sources every</span>
+              <select id="recheck-interval">
+                <option value="30">30 seconds</option>
+                <option value="60">1 minute</option>
+                <option value="120">2 minutes</option>
+                <option value="300">5 minutes</option>
+              </select>
+            </label>
+            <label class="row">
+              <span>Auto-switch when a stream stops</span>
+              <input type="checkbox" id="auto-switch" class="switch">
+            </label>
+          </div>
+        </section>
+        <section>
+          <div class="group">
+            <button type="button" class="row-btn" id="reset-site">Reset to default site</button>
+          </div>
+        </section>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="vendor/hls.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

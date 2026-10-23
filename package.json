@@ -1,0 +1,19 @@
+{
+  "name": "sports-streamer-web",
+  "version": "1.0.0",
+  "description": "Sports Streamer as a local web app: find live events, extract working streams and fail over between them",
+  "private": true,
+  "type": "module",
+  "main": "server/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/index.js --open",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "hls.js": "1.7.3",
+    "puppeteer-core": "24.43.1"
+  }
+}
